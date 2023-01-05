@@ -1,38 +1,3 @@
-# Copyright 2014-present PlatformIO <contact@platformio.org>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""
-Arduino
-
-Arduino Wiring-based Framework allows writing cross-platform software to
-control devices attached to a wide range of Arduino boards to create all
-kinds of creative coding, interactive objects, spaces or physical experiences.
-
-http://arduino.cc/en/Reference/HomePage
-"""
-
-# Extends: https://github.com/platformio/platform-espressif32/blob/develop/builder/main.py
-
-from os.path import basename, join
-
-from SCons.Script import DefaultEnvironment
-
-env = DefaultEnvironment()
-
-FRAMEWORK_DIR = env.PioPlatform().get_package_dir("framework-arduinoespressif32")
-
-env.Append(
     ASFLAGS=[
         "-mlongcalls"
     ],
@@ -332,13 +297,3 @@ env.Append(
         ("IDF_VER", '\\"v4.4.3-347-g9ee3c8337d\\"'),
         "ESP_PLATFORM",
         "_POSIX_READER_WRITER_LOCKS",
-        "ARDUINO_ARCH_ESP32",
-        "ESP32",
-        ("F_CPU", "$BOARD_F_CPU"),
-        ("ARDUINO", 10812),
-        ("ARDUINO_VARIANT", '\\"%s\\"' % env.BoardConfig().get("build.variant").replace('"', "")),
-        ("ARDUINO_BOARD", '\\"%s\\"' % env.BoardConfig().get("name").replace('"', "")),
-        "ARDUINO_PARTITION_%s" % basename(env.BoardConfig().get(
-            "build.partitions", "default.csv")).replace(".csv", "").replace("-", "_")
-    ]
-)
