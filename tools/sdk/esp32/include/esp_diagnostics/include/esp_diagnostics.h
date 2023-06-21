@@ -238,7 +238,7 @@ esp_err_t esp_diag_log_event(const char *tag, const char *format, ...) __attribu
  */
 #define ESP_DIAG_EVENT(tag, format, ...) \
 { \
-    esp_diag_log_event(tag, "EV (%"PRIu32") %s: " format, esp_log_timestamp(), tag, ##__VA_ARGS__); \
+    esp_diag_log_event(tag, "EV (%" PRIu32 ") %s: " format, esp_log_timestamp(), tag, ##__VA_ARGS__); \
     ESP_LOGI(tag, format, ##__VA_ARGS__); \
 }
 
@@ -290,6 +290,13 @@ void esp_diag_task_snapshot_dump(void);
  * @return crc
  */
 uint32_t esp_diag_meta_crc_get(void);
+
+/**
+ * @brief Get CRC of diagnostics data structures' size
+ *
+ * @return crc
+ */
+uint32_t esp_diag_data_size_get_crc(void);
 
 #ifdef __cplusplus
 }
